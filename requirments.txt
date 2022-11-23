@@ -11,3 +11,4 @@ pip install tqdm
 pip install -U scikit-learn scipy matplotlib
 pip install pandas
 pip install pickle5
+pip install click

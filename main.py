@@ -17,9 +17,33 @@ import gc
 import pandas as pd
 import pickle
 import json
+import click
+
+@click.group(invoke_without_command=True)
+@click.pass_context
+def cli(ctx):
+    pass
 
 
-def train(args):
+args = argparse.Namespace(
+        checkpoint_dir="weights/best_weight.hdf5",
+        history_dir="weights/history.json",
+        dataset_dir="data",
+        benign_dir="data/benign",
+        malig_dir="data/malignant",
+        train_sub_dir="train",
+        valid_sub_dir="valid",
+        test_sub_dir="test",
+        gpus="0",
+        batch_size=16,
+        num_epochs=50,
+        learning_rate=1e-4,
+       
+    )
+
+@cli.command()
+def train():
+  with tf.device(tf.DeviceSpec(device_type="GPU", device_index=args.gpus)):  
     X_train,Y_train=data_loading.load(sub_dir=args.train_sub_dir,args=args,resize=224)
     x_val,y_val=data_loading.load(sub_dir=args.valid_sub_dir,args=args,resize=224)
     train_generator = ImageDataGenerator(
@@ -64,7 +88,9 @@ def train(args):
         plt.show()
         plt.savefig('loss.png')
 
-def test(args):
+@cli.command()
+def test():
+  with tf.device(tf.DeviceSpec(device_type="GPU", device_index=args.gpus)):  
     resnet = ResNet50(
     weights='imagenet',
     include_top=False,
@@ -85,35 +111,17 @@ def test(args):
 
         
 
+@cli.command()
+def preprocess():
+    data_loading.distribute_data()
+    data_loading.split_train_test(args)
 
 
 
 if __name__ == "__main__":
 
-    args = argparse.Namespace(
-        checkpoint_dir="weights/best_weight.hdf5",
-        history_dir="weights/history.json",
-        dataset_dir="data",
-        benign_dir="data/benign",
-        malig_dir="data/malignant",
-        train_sub_dir="train",
-        valid_sub_dir="valid",
-        test_sub_dir="test",
-        gpus="0",
-        batch_size=16,
-        num_epochs=50,
-        train=True,
-        test=False,
-        learning_rate=1e-4,
-       
-    )
-    
     os.environ["CUDA_VISIBLE_DEVICES"] = args.gpus
-    #data_loading.distribute_data()
-    #data_loading.split_train_test(args)
-    print(tf.config.list_physical_devices('GPU'))
-    with tf.device(tf.DeviceSpec(device_type="GPU", device_index=args.gpus)):
-        #train(args)
-        test(args)
+    cli()
+    
     
 
