@@ -82,11 +82,11 @@ def train():
         hdf = pd.DataFrame(history.history)
         hdf[['accuracy', 'val_accuracy']].plot()
         plt.show()
-        plt.savefig('acc.png')
+        #plt.savefig('acc.png')
         hdf1= pd.DataFrame(history.history)
         hdf1[['loss', 'val_loss']].plot()
         plt.show()
-        plt.savefig('loss.png')
+        #plt.savefig('loss.png')
 
 @cli.command()
 def test():
