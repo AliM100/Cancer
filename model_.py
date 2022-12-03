@@ -9,6 +9,7 @@ def build_model(backbone, lr=1e-4):
     model.add(layers.Dropout(0.5))
     model.add(layers.BatchNormalization())
     model.add(layers.Dense(2, activation='softmax'))
+
     
     
     model.compile(

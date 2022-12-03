@@ -47,9 +47,9 @@ def split_train_test(args):
         shutil.move(os.path.join(args.benign_dir,i),os.path.join(args.dataset_dir,args.train_sub_dir))
     for i in random.sample(os.listdir(args.malig_dir),int(len(os.listdir(args.malig_dir))*.7)):
         shutil.move(os.path.join(args.malig_dir,i),os.path.join(args.dataset_dir,args.train_sub_dir))
-    for i in random.sample(os.listdir(args.benign_dir),int(len(os.listdir(args.benign_dir))*(1/3))):
+    for i in random.sample(os.listdir(args.benign_dir),int(len(os.listdir(args.benign_dir))*(2/3))):
         shutil.move(os.path.join(args.benign_dir,i),os.path.join(args.dataset_dir,args.valid_sub_dir))    
-    for i in random.sample(os.listdir(args.malig_dir),int(len(os.listdir(args.malig_dir))*(1/3))):
+    for i in random.sample(os.listdir(args.malig_dir),int(len(os.listdir(args.malig_dir))*(2/3))):
         shutil.move(os.path.join(args.malig_dir,i),os.path.join(args.dataset_dir,args.valid_sub_dir))
     for i in random.sample(os.listdir(args.benign_dir),int(len(os.listdir(args.benign_dir)))):
         shutil.move(os.path.join(args.benign_dir,i),os.path.join(args.dataset_dir,args.test_sub_dir))    
