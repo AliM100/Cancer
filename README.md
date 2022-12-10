@@ -10,7 +10,7 @@ First install packages required in requirements.txt file
   python main.py train()
   ```
 ## For testing:
- -Download weight files if you want to test the model. Weight files: https://drive.google.com/file/d/1kIScu4xqv5dmuI5SnW3xNZ0Ou0CcVITP/view?usp=share_link
+ -Download weight files: https://drive.google.com/file/d/1kIScu4xqv5dmuI5SnW3xNZ0Ou0CcVITP/view?usp=share_link
  -Run testing command:
  ```
  python main.py test()
