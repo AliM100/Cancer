@@ -47,7 +47,7 @@ args = argparse.Namespace(
 
 @cli.command()
 def train():
-  with tf.device(tf.DeviceSpec(device_type="GPU", device_index=args.gpus)):  
+  #with tf.device(tf.DeviceSpec(device_type="GPU", device_index=args.gpus)):  
     X_train,Y_train=data_loading.load(sub_dir=args.train_sub_dir,args=args,resize=224)
     x_val,y_val=data_loading.load(sub_dir=args.valid_sub_dir,args=args,resize=224)
     train_generator = ImageDataGenerator(
@@ -100,7 +100,7 @@ def train():
 
 @cli.command()
 def test():
-  with tf.device(tf.DeviceSpec(device_type="GPU", device_index=args.gpus)):  
+  #with tf.device(tf.DeviceSpec(device_type="GPU", device_index=args.gpus)):  
     resnet = ResNet50(
     weights='imagenet',
     include_top=False,
@@ -129,7 +129,7 @@ def preprocess():
 
 if __name__ == "__main__":
 
-    os.environ["CUDA_VISIBLE_DEVICES"] = args.gpus
+    #os.environ["CUDA_VISIBLE_DEVICES"] = args.gpus
     cli()
    
         
